@@ -1,0 +1,30 @@
+!!! 5
+
+- html_tag :class => "no-js", :lang => "en" do
+  = render "head"
+
+
+  %body{ :class => "#{ controller.controller_name }" }
+    .container
+      .row.row-header
+        = render "chromeframe"
+        = render "header"
+
+      .row.main-row
+        .span12
+          #main{ :role => "main" }
+
+            - flash.each do |name, msg|
+              - addclass = name == :notice ? "alert-success" : "alert-error"
+              .alert{'class' => addclass }
+                %a.close{'data-dismiss' => 'alert'}
+                = msg
+
+              -# = render "flashes"
+            = yield
+      .row.row-footer
+        .span12
+          = render "footer"
+
+    -# Javascript at the bottom for fast page loading
+

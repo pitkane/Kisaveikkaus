@@ -1,0 +1,25 @@
+%h1 Pistetilanne
+%br
+Tuloksia lisätty: #{ Result.all.count/3  } / 302
+%br
+Mitalleja jaettu: #{ Result.all.count.to_s } / 906
+%br
+%br
+
+%table{:class => 'table table-striped'}
+  %tr
+    %th #
+    %th Nimi
+    %th Pisteet
+    %th Arvatut (906)
+
+  - ii = 1
+  - @users.each do |user|
+    %tr
+      %td= ii.to_s
+      %td= user.name
+      %td= user.points
+      - user_guesses = Guess.where(:user_id => user.id)
+
+      %td= user_guesses.count()
+    - ii = ii + 1

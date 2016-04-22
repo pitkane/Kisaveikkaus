@@ -1,0 +1,91 @@
+
+
+
+:css
+  /* br { clear: both; } */
+  .cntSeparator {
+    font-size: 54px;
+    margin: 24px 7px;
+    color: #000;
+  }
+  #counter {
+    width: 525px;
+    margin: 0 auto;
+  }
+  #help_text {
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 8px;
+
+  }
+  .counter_text {  width: 525px; margin: 0 auto; }
+  .counter_text td { padding-top: 8px; width: 131px; font-size: 120%; }
+  .counter_text .days { padding-left: 30px; }
+  .counter_text .hours { padding-left: 50px; }
+  .counter_text .minutes { padding-left: 40px; }
+  .counter_text .seconds { padding-left: 40px; }
+
+  img.center {
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+  }
+
+- t1 = Time.new
+- t2 = Time.new(2012,7,27,21,0,0)
+- difference = (t2 - t1)
+
+- if difference < 0
+  - flash.now[:notice] = "Kisat ovat alkaneet, muutoksien tekeminen ei ole enään mahdollista!"
+  .row
+    .span12
+      %img{:class => "center", :src => "/assets/london_2012.png"}
+      %br
+      %br
+
+- else
+
+  %br
+  %h1{:style => "text-align: center;"} Kisojen alkuun
+  %br
+  #counter
+  %table.counter_text
+    %tr
+      %td.days Päivää
+      %td.hours Tuntia
+      %td.minutes Minuuttia
+      %td.seconds Sekuntia
+  %br
+  %br
+
+
+- time_diff_components = Time.diff(Time.new, Time.parse('2012-07-27 21:00:00'), '%d:%h:%m:%s')
+- difference = time_diff_components[:diff]
+
+:javascript
+  $('#counter').countdown2({
+    stepTime: 60,
+    startTime: "#{ difference }",
+    digitImages: 6,
+    digitWidth: 53,
+    digitHeight: 77,
+    timerEnd: function() { alert('end!!'); },
+    image: "/assets/digits.png"
+  });
+
+-# - feed = Feedzirra::Feed.fetch_and_parse("http://yle.fi/urheilu/rss/uutiset.rss?osasto=lontoo_2012")
+
+-# - feed.entries.each do |entry|
+  -# = entry.title
+
+
+.row
+  .span10.offset1
+    %h1{:style => "text-align: center;"} Tervetuloa Olympiakisaveikkaukseen!
+    %br
+    %p{:style => 'text-align: justify;', :id => 'home_text'} Aloita rekisteröimällä itsellesi käyttäjätunnus. Tämän jälkeen pääset jatkossa kirjautumaan sivustolle omilla tunnuksilla. Kirjautumisen jälkeen voit alkaa täyttämään itse veikkausta. Veikkaus sisältää KAIKKI 302 olympialajia, joista täytyy veikata jokaisen lajin kolme parasta maata. Jokaisesta oikein veikatusta maasta saa yhden pisteen eli piste per maa. Henkilö, joka saa eniten oikein, voittaa. Jokainen veikkaukseen osallistuja maksaa viiden euron ( 5€ ) panoksen, joka maksetaan kisojen päätyttyä ja tulosten tarkistuksen jälkeen henkilölle, joka on voittaja. Tasapelin sattuessa, potti jaetaan. 
+
+    %p{:style => 'text-align: justify;'} Sitovat ilmoittautumiset minulle (Tomi) joko facebookin kautta tai jollakin muulla tavalla. Jos joku muu haluaa liittyä tähän, voi kysellä lisätietoja minulta. 
+
+    %p{:style => 'text-align: justify;'} Veikkausta voi alkaa täyttämään tästä päivästä lähtien (29.6.12) ja veikkauksen täyttäminen päättyy kisojen alettua 27.7.12. Ilmoittakaa mahdollisista teknisistä ongelmista välittömästi esimerkiksi Facebookissa.
+    

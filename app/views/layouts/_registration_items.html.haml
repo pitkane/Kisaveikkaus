@@ -1,0 +1,7 @@
+- if signed_in?
+  %li
+    = link_to('Profiili', @profile)
+  </li>
+- else
+  %li
+    = link_to "Rekisteröidy", new_user_registration_path

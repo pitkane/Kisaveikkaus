@@ -1,0 +1,28 @@
+%header#header
+
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container
+
+        %a.brand{:href=>"/"} Kisaveikkaus 2012
+
+        %ul.nav
+          %li
+            = link_to "Kilpailut", root_path
+          %li
+            = link_to "Lajit", events_path
+          %li
+            = link_to "Pistetilanne", users_path
+          %li
+            = link_to "Lisää tulos", '/results'
+          %li
+            = link_to "Maat", countries_path
+          %li
+            = link_to "Omat arvaukset", guesses_path
+
+        %ul.nav.pull-right
+          = render "layouts/registration_items"
+          = render "layouts/login_items"
+
+
+link_to "Label", :controller => :my_controller, :action => :index

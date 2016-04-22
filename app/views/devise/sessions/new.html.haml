@@ -1,0 +1,16 @@
+%h2 Kirjaudu sisään
+= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  %br
+  %div
+    %label Sähköpostiosoite:
+    = f.email_field :email
+  %div
+    %label Salasana:
+    = f.password_field :password
+  - if devise_mapping.rememberable?
+    %div
+      = f.check_box :remember_me
+      %label Muista minut
+    %br
+  %div= f.submit "Kirjaudu sisään"
+= render "links"

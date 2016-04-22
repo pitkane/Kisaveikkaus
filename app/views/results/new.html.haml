@@ -1,0 +1,98 @@
+
+:css
+  /*
+  .select_event {
+    display: none;
+  }
+  */
+
+
+:javascript
+  get_serie = function (serie) {
+    if(serie == "1") {
+        return "Miehet";
+    }
+    else if(serie == "2") {
+        return "Naiset";
+    }
+    else {
+        return "Yhteinen";
+    }
+  };
+
+
+  $(document).ready(function () {
+    $('.select_event').hide();
+
+
+
+    $('.sport').change(function() {
+      var sport_id = $(this).val();
+
+      $.ajax({
+        type: "GET",
+        url: "/results/get_events",
+        data: { 'sport_id': sport_id },
+        contentType: "application/json; charset=utf-8",
+        statusCode: {
+          200: function(result) {
+
+            var events = $("#events");
+            events.empty();
+            $("#status_1").empty();
+            $("#status_2").empty();
+            $("#status_3").empty();
+
+            $.each(result, function(item) {
+              events.append($("<option />").val(this.id).text(this.name + " (" + get_serie(this.series) + ")" ));
+            });
+
+          }
+        }
+      });
+
+      $('.select_event').show();
+
+    });
+
+  });
+
+= form_for @result, :html => {:class => "form-horizontal"} do |f|
+  %fieldset
+    %legend Lisää uusi tulos
+    .control-group
+      %label.control-label Valitse laji:
+      .controls
+        %select{:name => "sport_id", :class => "sport"}
+          - @sports.each do |sport|
+            %option{:value => sport.id} #{ sport.name } 
+
+    .select_event
+      .control-group
+        %label.control-label Valitse kisa:
+        .controls
+          %select{:id => "events", :name => "event_id", :class => "event"}
+      
+      .row
+        .span4
+          Kulta:
+          #status_1{ :class => 'control-group', :style => 'margin-bottom: 0px'}
+          <input autocomplete="off" id='input_1' name='first' type='text' data-items='4' data-provide='typeahead' data-source='["Afganistan", "Albania", "Algeria", "Amerikan Samoa", "Andorra", "Angola", "Antigua ja Barbuda", "Argentiina", "Armenia", "Australia", "Itävalta", "Azerbaidzan", "Bahama", "Bahrain", "Barbados", "Valko-Venäjä", "Belgia", "Bermuda", "Bolivia", "Bosnia ja Hertsegovina", "Botswana", "Brasilia", "Brittiläiset Neitsytsaaret", "Bulgaria", "Burundi", "Kamerun", "Kanada", "Caymansaaret", "Keski-Afrikan tasavalta", "Chile", "Kiina", "Kolumbia", "Kongo", "Cookinsaaret", "Costa Rica", "Norsunluurannikko", "Kroatia", "Kuuba", "Kypros", "Tsekki", "Tanska", "Djibouti", "Dominica", "Dominikaaninen tasavalta", "Ecuador", "Egypti", "El Salvador", "Eritrea", "Viro", "Etiopia", "Fidzi", "Suomi", "Ranska", "Gabon", "Georgia", "Saksa", "Ghana", "Iso-Britannia", "Kreikka", "Grenada", "Guatemala", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hongkong", "Unkari", "Islanti", "Intia", "Indonesia", "Iran", "Irlanti", "Israel", "Italia", "Jamaika", "Japani", "Jordania", "Kazakstan", "Kenia", "Pohjois-Korea", "Etelä-Korea", "Kuwait", "Kirgisia", "Latvia", "Libanon", "Liberia", "Libya", "Liettua", "Luxemburg", "Madagaskar", "Malesia", "Malta", "Meksiko", "Moldova", "Mongolia", "Montenegro", "Marokko", "Mosambik", "Namibia", "Hollanti", "Uusi-Seelanti", "Nigeria", "Norja", "Oman", "Pakistan", "Panama", "Papua-Uusi-Guinea", "Paraguay", "Peru", "Filippiinit", "Puola", "Portugali", "Puerto Rico", "Qatar", "Romania", "Venäjä", "Ruanda", "Saint Kitts ja Nevis", "Saint Lucia", "Samoa", "San Marino", "Saudi-Arabia", "Senegal", "Serbia", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Etelä-Afrikka", "Espanja", "Sudan", "Ruotsi", "Sveitsi", "Syyria", "Kiinan Taipei", "Tadzikistan", "Tansania", "Thaimaa", "Trinidad ja Tobago", "Tunisia", "Turkki", "Turkmenistan", "Uganda", "Ukraina", "Yhdistyneet arabiemiirikunnat", "Yhdysvallat", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Neitsytsaaret", "Sambia", "Zimbabwe"]'></input>
+        .span4
+          Hopea:
+          #status_2{ :name => "second", :class => 'control-group', :style => 'margin-bottom: 0px'}
+          <input autocomplete="off" id='input_2' name='second' type='text' data-items='4' data-provide='typeahead' data-source='["Afganistan", "Albania", "Algeria", "Amerikan Samoa", "Andorra", "Angola", "Antigua ja Barbuda", "Argentiina", "Armenia", "Australia", "Itävalta", "Azerbaidzan", "Bahama", "Bahrain", "Barbados", "Valko-Venäjä", "Belgia", "Bermuda", "Bolivia", "Bosnia ja Hertsegovina", "Botswana", "Brasilia", "Brittiläiset Neitsytsaaret", "Bulgaria", "Burundi", "Kamerun", "Kanada", "Caymansaaret", "Keski-Afrikan tasavalta", "Chile", "Kiina", "Kolumbia", "Kongo", "Cookinsaaret", "Costa Rica", "Norsunluurannikko", "Kroatia", "Kuuba", "Kypros", "Tsekki", "Tanska", "Djibouti", "Dominica", "Dominikaaninen tasavalta", "Ecuador", "Egypti", "El Salvador", "Eritrea", "Viro", "Etiopia", "Fidzi", "Suomi", "Ranska", "Gabon", "Georgia", "Saksa", "Ghana", "Iso-Britannia", "Kreikka", "Grenada", "Guatemala", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hongkong", "Unkari", "Islanti", "Intia", "Indonesia", "Iran", "Irlanti", "Israel", "Italia", "Jamaika", "Japani", "Jordania", "Kazakstan", "Kenia", "Pohjois-Korea", "Etelä-Korea", "Kuwait", "Kirgisia", "Latvia", "Libanon", "Liberia", "Libya", "Liettua", "Luxemburg", "Madagaskar", "Malesia", "Malta", "Meksiko", "Moldova", "Mongolia", "Montenegro", "Marokko", "Mosambik", "Namibia", "Hollanti", "Uusi-Seelanti", "Nigeria", "Norja", "Oman", "Pakistan", "Panama", "Papua-Uusi-Guinea", "Paraguay", "Peru", "Filippiinit", "Puola", "Portugali", "Puerto Rico", "Qatar", "Romania", "Venäjä", "Ruanda", "Saint Kitts ja Nevis", "Saint Lucia", "Samoa", "San Marino", "Saudi-Arabia", "Senegal", "Serbia", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Etelä-Afrikka", "Espanja", "Sudan", "Ruotsi", "Sveitsi", "Syyria", "Kiinan Taipei", "Tadzikistan", "Tansania", "Thaimaa", "Trinidad ja Tobago", "Tunisia", "Turkki", "Turkmenistan", "Uganda", "Ukraina", "Yhdistyneet arabiemiirikunnat", "Yhdysvallat", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Neitsytsaaret", "Sambia", "Zimbabwe"]'></input>
+        .span4
+          Pronssi:
+          #status_3{ :name => "third", :class => 'control-group', :style => 'margin-bottom: 0px'}
+          <input autocomplete="off" id='input_3' name='third' type='text' data-items='4' data-provide='typeahead' data-source='["Afganistan", "Albania", "Algeria", "Amerikan Samoa", "Andorra", "Angola", "Antigua ja Barbuda", "Argentiina", "Armenia", "Australia", "Itävalta", "Azerbaidzan", "Bahama", "Bahrain", "Barbados", "Valko-Venäjä", "Belgia", "Bermuda", "Bolivia", "Bosnia ja Hertsegovina", "Botswana", "Brasilia", "Brittiläiset Neitsytsaaret", "Bulgaria", "Burundi", "Kamerun", "Kanada", "Caymansaaret", "Keski-Afrikan tasavalta", "Chile", "Kiina", "Kolumbia", "Kongo", "Cookinsaaret", "Costa Rica", "Norsunluurannikko", "Kroatia", "Kuuba", "Kypros", "Tsekki", "Tanska", "Djibouti", "Dominica", "Dominikaaninen tasavalta", "Ecuador", "Egypti", "El Salvador", "Eritrea", "Viro", "Etiopia", "Fidzi", "Suomi", "Ranska", "Gabon", "Georgia", "Saksa", "Ghana", "Iso-Britannia", "Kreikka", "Grenada", "Guatemala", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hongkong", "Unkari", "Islanti", "Intia", "Indonesia", "Iran", "Irlanti", "Israel", "Italia", "Jamaika", "Japani", "Jordania", "Kazakstan", "Kenia", "Pohjois-Korea", "Etelä-Korea", "Kuwait", "Kirgisia", "Latvia", "Libanon", "Liberia", "Libya", "Liettua", "Luxemburg", "Madagaskar", "Malesia", "Malta", "Meksiko", "Moldova", "Mongolia", "Montenegro", "Marokko", "Mosambik", "Namibia", "Hollanti", "Uusi-Seelanti", "Nigeria", "Norja", "Oman", "Pakistan", "Panama", "Papua-Uusi-Guinea", "Paraguay", "Peru", "Filippiinit", "Puola", "Portugali", "Puerto Rico", "Qatar", "Romania", "Venäjä", "Ruanda", "Saint Kitts ja Nevis", "Saint Lucia", "Samoa", "San Marino", "Saudi-Arabia", "Senegal", "Serbia", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Etelä-Afrikka", "Espanja", "Sudan", "Ruotsi", "Sveitsi", "Syyria", "Kiinan Taipei", "Tadzikistan", "Tansania", "Thaimaa", "Trinidad ja Tobago", "Tunisia", "Turkki", "Turkmenistan", "Uganda", "Ukraina", "Yhdistyneet arabiemiirikunnat", "Yhdysvallat", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Neitsytsaaret", "Sambia", "Zimbabwe"]'></input>
+
+    %%br
+
+
+    .control-group
+      .controls
+        = f.submit("Lisää tulos", :class => "btn")
+
+= link_to 'Näytä lisätyt tulokset', results_path
+

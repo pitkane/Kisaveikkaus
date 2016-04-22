@@ -1,0 +1,96 @@
+:javascript
+  $(function() {
+
+    $(document).ready(function () {
+      $('#tab li').click( function(){
+        $('#tab li').removeClass('active');
+        var currentId = $(this).addClass('active');
+
+        var first = $(this).attr("id");
+        $.ajax({
+          url: "/countries/get_flags",
+          type: "GET",
+          data: {first_letter: first},
+          complete: function() {
+            // called when complete
+          },
+          success: function(data) {
+            // called when succesful
+            $('#countries_container').html("");
+            $('#countries_container').append(data);
+
+          },
+          error: function(xhr,status,error) {
+            // called when error
+          }
+        });
+      });
+      $('#A').trigger('click');
+    });
+
+  });
+:css
+  .country-name {width: 100%; text-align: center; font-size: 130%; padding-bottom: 8px; }
+  .country-image { text-align: center }
+  .country-image img { border: 1px solid black; }
+  .country-row { margin-bottom: 30px; }
+
+%h1 Kisoihin osallistuvat maat
+%br
+%br
+
+.tabbable
+  %ul.nav.nav-tabs{ :id => 'tab'}
+    %li.active{:id => "A"}
+      %a{'data-toggle' => "tab"} A
+    %li{:id => "B"}
+      %a{'data-toggle' => "tab"} B
+    %li{:id => "C"}
+      %a{'data-toggle' => "tab"} C
+    %li{:id => "D"}
+      %a{'data-toggle' => "tab"} D
+    %li{:id => "E"}
+      %a{ 'data-toggle' => "tab"} E
+    %li{:id => "F"}
+      %a{'data-toggle' => "tab"} F
+    %li{:id => "G"}
+      %a{'data-toggle' => "tab"} G
+    %li{:id => "H"}
+      %a{'data-toggle' => "tab"} H
+    %li{:id => "I"}
+      %a{'data-toggle' => "tab"} I
+    %li{:id => "J"}
+      %a{'data-toggle' => "tab"} J
+    %li{:id => "K"}
+      %a{'data-toggle' => "tab"} K
+    %li{:id => "L"}
+      %a{'data-toggle' => "tab"} L
+    %li{:id => "M"}
+      %a{'data-toggle' => "tab"} M
+    %li{:id => "N"}
+      %a{'data-toggle' => "tab"} N
+    %li{:id => "O"}
+      %a{'data-toggle' => "tab"} O
+    %li{:id => "P"}
+      %a{'data-toggle' => "tab"} P
+    %li{:id => "Q"}
+      %a{'data-toggle' => "tab"} Q
+    %li{:id => "R"}
+      %a{'data-toggle' => "tab"} R
+    %li{:id => "S"}
+      %a{'data-toggle' => "tab"} S
+    %li{:id => "T"}
+      %a{'data-toggle' => "tab"} T
+    %li{:id => "U"}
+      %a{'data-toggle' => "tab"} U
+    %li{:id => "V"}
+      %a{'data-toggle' => "tab"} V
+    %li{:id => "X"}
+      %a{'data-toggle' => "tab"} X
+    %li{:id => "Y"}
+      %a{'data-toggle' => "tab"} Y
+    %li{:id => "Z"}
+      %a{'data-toggle' => "tab"} Z
+%br
+  .tab-content
+    .tab-pane.fade.in.active{:id => "countries_container"}

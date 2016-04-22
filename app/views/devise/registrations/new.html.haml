@@ -1,0 +1,24 @@
+%br
+%h2 Rekisteröidy
+
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  =# devise_error_messages!
+  %br
+  %div
+    %label Sähköpostiosoite:
+    = f.email_field :email
+  %div
+    %label Nimesi:
+    = f.text_field :name
+  %div
+    %label Salasana:
+    = f.password_field :password
+  %div
+    %label Salasana uudelleen:
+    = f.password_field :password_confirmation
+  -# %div
+  -#   %label Secret:
+  -#   %input{:id => 'secret', :size => '30', :type => 'text'}
+  %br
+  %div= f.submit "Rekisteröidy!"
+= render "links"

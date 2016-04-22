@@ -1,0 +1,28 @@
+= form_for @guess, :html => {:class => "form-horizontal"} do |f|
+  %fieldset
+    %legend Lisää uusi arvaus
+
+    .control-group
+      %label.control-label Tapahtuma:
+      .controls
+        = f.collection_select(:event, Event.all, :id, :name, {}, {})
+    .control-group
+      %label.control-label Maa:
+      .controls
+        = f.collection_select(:country, Country.all, :id, :name, {}, {})
+
+    .control-group
+      %label.control-label Sijoitus:
+      .controls
+        %select{:name => "guess[rank]"}
+          %option{:value => "1"} 1
+          %option{:value => "2"} 2
+          %option{:value => "3"} 3
+
+    .control-group
+      .controls
+        = f.submit("Lisää arvaus", :class => "btn")
+        -# %button.btn{:type => "submit", :name => "commit"} Lisää laji
+
+= link_to 'Takaisin', guesses_path
+

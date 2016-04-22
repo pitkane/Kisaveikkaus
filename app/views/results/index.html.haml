@@ -1,0 +1,76 @@
+#guess-flash
+
+%h1 Muokkaa tuloksia
+%br
+:css
+  .flag-holder {
+    width: 34px;
+    height: 20px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 4px;
+  }
+  .place-holder {
+    font-size: 110%;
+    margin-top: 5px;
+    width: 180px;
+  }
+
+-# = link_to "Printtaa PDF (tulossa)", :controller => "guesses", :action => 'gen_pdf'
+-# = link_to "Laske pisteet uudelleen (kestää ihan sairaan kauan...)", "/results/recalculate"
+-# %br
+-# %br
+
+/ .guess-count-container
+/   = "Arvatut kohteet"
+/   .guess-count{:style => "display: inline;"}= @user_guesses.count.to_s
+/   = " / " + (Event.count * 3).to_s
+/ %br
+
+-# countries_list = get_countries
+
+:javascript
+  var user = #{ current_user.id };
+
+.span12{:style => "width: 900px"}
+  .accordion{:id => "accordion2"}
+    - @sports.each do |sport|
+      .accordion-group
+        .accordion-heading
+          -# - results_for_sport = @results.where(:user_id => current_user.id, :sport_id => sport.id)
+          -# - number_of_events = Event.where(:sport_id => sport.id)
+          %a.accordion-toggle.result_select_sport{'sport_id' => sport.id.to_s, 'data-toggle' => "collapse", 'data-parent' => "#accordion2", :href => "#collapse" + sport.id.to_s }= sport.name 
+          -# + " ( " + results_for_sport.count().to_s + " / " + (number_of_events.count() * 3).to_s + " )"
+        .accordion-body.collapse{:id => "collapse" + sport.id.to_s}
+          .accordion-inner
+            Lataa...
+
+  %br
+  %br
+  = link_to "Laske pisteet uudelleen (kestää pari minsaa)", "/results/recalculate"
+  %br
+  %br
+
+.clearfix
+
+
+/ - for i in 1..302 do
+/   - numb = Result.where("event_id = ?", i )
+/   - if numb
+/     = numb.count
+
+
+
+
+
+
+/ %h1 Tulokset
+/ %br
+/ 1 = miehet
+/ 2 = naiset
+/ %br
+/   - tulokset = Result.all.each do |result|
+/     = result.event.sport.name + " (" + result.event.name + ") (" + result.event.series.to_s + "): " + result.country.name + " " + result.rank.to_s
+/     %br
+/ - if current_user.admin?
+/   = link_to "lisää tulos", :controller => "results", :action => "new"

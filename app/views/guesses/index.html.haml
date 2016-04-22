@@ -1,0 +1,47 @@
+#guess-flash
+
+%h1 Omat arvaukset
+%br
+:css
+  .flag-holder {
+    width: 34px;
+    height: 20px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 4px;
+  }
+  .place-holder {
+    font-size: 110%;
+    margin-top: 5px;
+    width: 180px;
+  }
+
+= link_to "Printtaa PDF (tulossa)", :controller => "guesses", :action => 'gen_pdf'
+%br
+%br
+
+.guess-count-container
+  = "Arvatut kohteet"
+  .guess-count{:style => "display: inline;"}= @user_guesses.count.to_s
+  = " / " + (Event.count * 3).to_s
+%br
+
+-# countries_list = get_countries
+
+:javascript
+  var user = #{ current_user.id };
+
+.span12{:style => "width: 900px"}
+  .accordion{:id => "accordion2"}
+    - @sports.each do |sport|
+      .accordion-group
+        .accordion-heading
+          - guesses_for_sport = Guess.where(:user_id => current_user.id, :sport_id => sport.id)
+          - number_of_events = Event.where(:sport_id => sport.id)
+          %a.accordion-toggle.guesses_click_sport{'sport_id' => sport.id.to_s, 'data-toggle' => "collapse", 'data-parent' => "#accordion2", :href => "#collapse" + sport.id.to_s }= sport.name + " ( " + guesses_for_sport.count().to_s + " / " + (number_of_events.count() * 3).to_s + " )"
+        .accordion-body.collapse{:id => "collapse" + sport.id.to_s}
+          .accordion-inner
+            Lataa...
+
+
+.clearfix

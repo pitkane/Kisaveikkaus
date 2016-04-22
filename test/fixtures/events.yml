@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  first_id: 1
+  second_id: 1
+  third_id: 1
+  series: 1
+
+two:
+  name: MyString
+  first_id: 1
+  second_id: 1
+  third_id: 1
+  series: 1

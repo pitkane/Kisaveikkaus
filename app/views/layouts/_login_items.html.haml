@@ -1,0 +1,7 @@
+- if signed_in?
+  %li
+    = link_to "Kirjaudu ulos", destroy_user_session_path, :method => :delete
+
+- else
+  %li
+    = link_to "Kirjaudu sisään", new_user_session_path

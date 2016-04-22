@@ -1,0 +1,30 @@
+
+= form_for @event, :html => {:class => "form-horizontal"} do |f|
+  %fieldset
+    %legend Lisää uusi laji
+    .control-group
+      %label.control-label Lajit:
+      .controls
+        = f.collection_select(:name, Sport.all, :id, :name, {}, {:name => "select_sport"})
+
+    .control-group
+      %label.control-label Nimi:
+      .controls
+        = f.text_field :name
+
+    .control-group
+      %label.control-label Sarja:
+      .controls
+        %select{:name => "event[series]"}
+          %option{:value => "1"} Miehet
+          %option{:value => "2"} Naiset
+          %option{:value => "3"} Yhteinen
+
+    .control-group
+      .controls
+        = f.submit("Lisää laji", :class => "btn")
+        -# %button.btn{:type => "submit", :name => "commit"} Lisää laji
+
+
+= link_to 'Back', events_path
+
