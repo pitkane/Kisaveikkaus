@@ -28,7 +28,7 @@ View layer was made (almost) completely in Haml, which was hot topic back then..
 
 ### Misc.
 
-Used Postgres for backend, but RoR pg adapter made all the heavy lifting of course.
+Used Postgres on backend, but RoR pg adapter made all the heavy lifting of course.
 
 ## Tech Stack
 
@@ -36,6 +36,6 @@ Used Postgres for backend, but RoR pg adapter made all the heavy lifting of cour
 * Rails
 * Haml
 * Bootstrap
-* Unicord
+* Unicorn
 
 Also made some Unicorn deployment scripts, but can't find them anymore ;)
